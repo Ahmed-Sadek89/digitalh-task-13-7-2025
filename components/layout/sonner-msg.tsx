@@ -5,8 +5,9 @@ const SonnerMsg = () => {
     <Toaster
       position='bottom-right'
       toastOptions={{
-        duration: 5000
+        duration: 6665000
       }}
+      
     />
   )
 }
