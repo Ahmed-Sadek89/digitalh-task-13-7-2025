@@ -14,13 +14,15 @@ interface IFormInput {
   name: string
   type?: string
   placeholder?: string
+  customStyle?: string
 }
 const FormInput = ({
   control,
   label,
   name,
   type = 'text',
-  placeholder = ''
+  placeholder = '',
+  customStyle = 'bg-black border-white focus:border-white focus:ring-white text-white placeholder:text-gray-400'
 }: IFormInput) => {
   return (
     <FormField
@@ -28,12 +30,18 @@ const FormInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className='font-medium text-white'>{label}</FormLabel>
+          <FormLabel
+            className={`font-medium ${
+              customStyle ? 'text-black' : 'text-white'
+            }`}
+          >
+            {label}
+          </FormLabel>
           <FormControl>
             <Input
               type={type}
               placeholder={placeholder}
-              className='bg-black border-white focus:border-white focus:ring-white text-white placeholder:text-gray-400'
+              className={customStyle}
               {...field}
             />
           </FormControl>

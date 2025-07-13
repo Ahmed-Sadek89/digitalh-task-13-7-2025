@@ -1,3 +1,5 @@
 export { default as FormInput } from './form-input'
 export { default as CustomCard } from './custom-card'
 export { default as SubmitButton } from './submit-button'
+export { default as CustomDialog } from './custom-dialog'
+export { default as CustomSelectInput } from './custom-select-input'
