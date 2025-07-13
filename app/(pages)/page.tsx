@@ -1,14 +1,14 @@
-import { Button } from '@/components/ui/button'
+import { LoginForm } from '@/components/form/login-form'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: 'Login',
   description: 'For DigitalH Task description'
 }
-export default function Home () {
+export default function LoginPage () {
   return (
-    <div>
-      <Button>Click me</Button>
+    <div className='flex justify-center items-center bg-black min-h-screen'>
+      <LoginForm />
     </div>
   )
 }
