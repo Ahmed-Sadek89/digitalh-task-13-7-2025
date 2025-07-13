@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 }
 const page = () => {
   return (
-    <div>page</div>
+    <main className='flex justify-center items-center bg-black min-h-screen text-white'>page</main>
   )
 }
 
