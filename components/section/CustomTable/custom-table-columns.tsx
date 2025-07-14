@@ -3,7 +3,6 @@ import * as React from 'react'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import Image from 'next/image'
 import { Product } from '@/type'
 import CustomMenuForTableRow from './custom-menu-for-table-row'
 export const columns: ColumnDef<Product>[] = [
@@ -96,7 +95,7 @@ export const columns: ColumnDef<Product>[] = [
 
       return (
         <div className='flex items-center gap-x-3'>
-          <Image
+          <img
             src={`${category.image}/png`}
             alt={category.name}
             width={40}
@@ -110,18 +109,16 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'images',
-    header: () => <div className='text-white'>images</div>,
+    header: () => <div className='text-white'>Images</div>,
     cell: ({ row }) => {
       const images = row.original.images
       return (
         <div className='flex items-center gap-x-3'>
           {images?.map((image, index) => (
-            <Image
+            <img
               src={`${image}/png`}
               key={index}
               alt={`${image}/png`}
-              width={30}
-              height={30}
               className='rounded-full w-[30] h-[30]'
             />
           ))}

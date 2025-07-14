@@ -9,16 +9,19 @@ import {
   useReactTable,
   VisibilityState
 } from '@tanstack/react-table'
-import { data } from '@/components/section/CustomTable/example'
+// import { data as mockData } from '@/components/section/CustomTable/example'
 import { columns } from '@/components/section/CustomTable/custom-table-columns'
+import { Product } from '@/type'
 
-const useTableStructure = () => {
+const useTableStructure = ({ data }: { data: Product[] }) => {
+  let realData = data
+  // const products = realData ? realData : mockData
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const table = useReactTable({
-    data,
+    data: realData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
