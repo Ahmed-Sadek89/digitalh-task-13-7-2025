@@ -1,4 +1,6 @@
 import { CustomTable } from '@/components/section'
+import Dashboard from '@/components/section/dashboard'
+import { getFilteredProducts } from '@/server/get-filtered-products'
 import { getProducts } from '@/server/get-products'
 import { Product } from '@/type'
 import { Metadata } from 'next'
@@ -7,15 +9,19 @@ export const metadata: Metadata = {
   title: 'Dashboard',
   description: 'For DigitalH Task description'
 }
-const page = async () => {
-  const products = await getProducts()
-  return (
-    <main className='flex justify-center items-center bg-black min-h-screen text-white'>
-      <div className='mx-auto px-4 pt-32 pb-10 w-full max-w-8xl'>
-        <CustomTable products={products as Product[]}/>
-      </div>
-    </main>
-  )
+const page = async ({
+  searchParams
+}: {
+  searchParams: Promise<{ product: string | undefined }>
+}) => {
+  const product_slug = (await searchParams).product
+  let products
+  if (product_slug) {
+    products = await getFilteredProducts(product_slug as string)
+  } else {
+    products = await getProducts()
+  }
+  return <Dashboard products={products} />
 }
 
 export default page

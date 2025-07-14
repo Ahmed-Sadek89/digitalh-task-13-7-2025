@@ -132,7 +132,7 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const product = row.original
 
-      return <CustomMenuForTableRow id={product.id.toString()} />
+      return <CustomMenuForTableRow  data={product}/>
     }
   }
 ]

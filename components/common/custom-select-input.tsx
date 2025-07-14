@@ -7,9 +7,10 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Control } from 'react-hook-form'
+import { Category } from '@/type'
 interface ICustomSelectInput {
   control: Control<any, any, any>
-  categories: string[]
+  categories: Category[]
 }
 const CustomSelectInput = ({ control, categories }: ICustomSelectInput) => {
   return (
@@ -25,9 +26,8 @@ const CustomSelectInput = ({ control, categories }: ICustomSelectInput) => {
               {...field}
             >
               {categories.map(cat => (
-                // <option key={cat.id} value={cat.id}>
-                <option key={cat} value={cat}>
-                  {cat}
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
                 </option>
               ))}
             </select>

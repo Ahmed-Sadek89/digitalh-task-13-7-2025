@@ -15,19 +15,17 @@ import ViewProduct from './Product/view-product'
 import ViewEditProduct from './Product/view-edit-product'
 import ViewDeleteProduct from './Product/view-delete-product'
 import { Product } from '@/type'
-import { data } from './example'
 
-const CustomMenuForTableRow = ({ id }: { id: string }) => {
+const CustomMenuForTableRow = ({ data }: { data: Product}) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [dialogType, setDialogType] = useState<
     'view' | 'edit' | 'delete' | null
   >(null)
 
-  const product = data.find(p => p.id === Number(id)) // safer than using array index
 
   const openDialog = (type: 'view' | 'edit' | 'delete') => {
-    if (product) {
-      setSelectedProduct(product)
+    if (data) {
+      setSelectedProduct(data)
       setDialogType(type)
     }
   }

@@ -6,8 +6,8 @@ import { FormInput, SubmitButton, CustomSelectInput } from '@/components/common'
 import { LoginFormData, loginFormSchema } from '@/schema/login-schema'
 import { useLoadingAction, useLoginSubmit } from '@/hooks'
 import { ProductFormData, ProductSchema } from '@/schema/product-schema'
-import { useEffect } from 'react'
-import { Product } from '@/type'
+import { useEffect, useState } from 'react'
+import { Category, Product } from '@/type'
 
 const ProductForm = ({ product }: { product?: Product }) => {
   const { isLoading, startLoading, stopLoading } = useLoadingAction()
@@ -21,7 +21,7 @@ const ProductForm = ({ product }: { product?: Product }) => {
       images: ['']
     }
   })
-  const categories = ['aaa', 'bbb', 'ccc']
+  // const categories = ['aaa', 'bbb', 'ccc']
   // const onSubmit = useLoginSubmit(startLoading, stopLoading)
   const onSubmit = () => console.log('first')
   useEffect(() => {
@@ -35,6 +35,15 @@ const ProductForm = ({ product }: { product?: Product }) => {
       })
     }
   }, [product, form.reset])
+  const [categories, setCategories] = useState<Category[]>([])
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await fetch('/api/category')
+      const data = await res.json()
+      setCategories(data)
+    }
+    fetchCategories()
+  }, [])
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 py-4'>
@@ -61,8 +70,9 @@ const ProductForm = ({ product }: { product?: Product }) => {
           type='number'
           placeholder='Enter Product price'
         />
-
-        <CustomSelectInput categories={categories} control={form.control} />
+        {categories && (
+          <CustomSelectInput categories={categories} control={form.control} />
+        )}
 
         <FormInput
           control={form.control}
