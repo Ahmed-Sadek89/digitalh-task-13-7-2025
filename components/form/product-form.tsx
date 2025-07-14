@@ -44,7 +44,6 @@ const ProductForm = ({ product }: { product?: Product }) => {
           label='Title'
           type='text'
           placeholder='Enter Product title'
-          customStyle='bg-white border-black text-black placeholder:text-gray-800'
         />
 
         <FormInput
@@ -53,7 +52,6 @@ const ProductForm = ({ product }: { product?: Product }) => {
           label='Description'
           type='text'
           placeholder='Enter Product description'
-          customStyle='bg-white border-black text-black placeholder:text-gray-800'
         />
 
         <FormInput
@@ -62,7 +60,6 @@ const ProductForm = ({ product }: { product?: Product }) => {
           label='Price'
           type='number'
           placeholder='Enter Product price'
-          customStyle='bg-white border-black text-black placeholder:text-gray-800'
         />
 
         <CustomSelectInput categories={categories} control={form.control} />
@@ -73,7 +70,6 @@ const ProductForm = ({ product }: { product?: Product }) => {
           label='Images'
           type='text'
           placeholder='Enter Product Images'
-          customStyle='bg-white border-black text-black placeholder:text-gray-800'
         />
         <SubmitButton
           isLoading={isLoading}

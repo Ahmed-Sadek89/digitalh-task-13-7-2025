@@ -9,7 +9,7 @@ const SubmitButton = ({ isLoading, loadingText, text }: ISubmitButton) => {
   return (
     <Button
       type='submit'
-      className='bg-white hover:bg-gray-200 focus:ring-white w-full text-black cursor-pointer'
+      className='bg-black hover:bg-gray-800 focus:ring-black w-full text-white cursor-pointer'
       disabled={isLoading}
     >
       {isLoading ? loadingText : text}

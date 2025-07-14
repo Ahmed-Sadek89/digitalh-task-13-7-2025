@@ -18,10 +18,10 @@ const CustomCard = ({
   description = undefined
 }: ICustomCard) => {
   return (
-    <Card className='bg-black border-white w-full max-w-md'>
+    <Card className='bg-white border-black w-full max-w-md'>
       <CardHeader className='space-y-1 text-center'>
-        <CardTitle className='font-bold text-white text-2xl'>{title}</CardTitle>
-        <CardDescription className='text-gray-300'>
+        <CardTitle className='font-bold text-black text-2xl'>{title}</CardTitle>
+        <CardDescription className='text-gray-800'>
           {description}
         </CardDescription>
       </CardHeader>

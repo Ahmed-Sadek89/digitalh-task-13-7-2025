@@ -1,10 +1,13 @@
 import { DashboardHeader } from '@/components/layout'
-import React from 'react'
+import { getProfile } from '@/server/get-profile'
+import { Profile } from '@/type'
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const layout = async ({ children }: { children: React.ReactNode }) => {
+  const profile = await getProfile()
+
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader profile={profile as Profile} />
       {children}
     </>
   )

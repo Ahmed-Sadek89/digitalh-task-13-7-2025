@@ -1,14 +1,27 @@
+export interface Profile {
+  id: number
+  email: string
+  password: string
+  name: string
+  role: string
+  avatar: string
+  creationAt: string
+  updatedAt: string
+}
+
+export interface Category {
+  id: number
+  name: string
+  image: string
+  slug: string
+}
+
 export interface Product {
   id: number
   title: string
   slug: string
   description: string
   price: number
-  category: {
-    id: number
-    name: string
-    image: string
-    slug: string
-  }
+  category: Category
   images: string[]
 }

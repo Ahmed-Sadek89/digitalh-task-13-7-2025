@@ -1,21 +1,26 @@
-import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
-export function middleware (request: NextRequest) {
-  const response = NextResponse.next()
-  // const token = request.cookies.get("digitalH_token").value;
-  const token = true
+export async function middleware (request: NextRequest) {
+  const secret = process.env.NEXTAUTH_SECRET
 
-  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/', request.nextUrl))
+  const token = await getToken({ req: request, secret })
+
+  const isAuth = !!token
+  const isDashboard = request.nextUrl.pathname.startsWith('/dashboard')
+  const isHome = request.nextUrl.pathname === '/'
+
+  if (!isAuth && isDashboard) {
+    return NextResponse.redirect(new URL('/', request.url))
   }
-  if (token && request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
+
+  if (isAuth && isHome) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  return response
+  return NextResponse.next()
 }
-
 export const config = {
   matcher: [
     '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
