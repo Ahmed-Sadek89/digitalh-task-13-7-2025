@@ -8,10 +8,12 @@ import {
 } from '@/components/ui/form'
 import { Control } from 'react-hook-form'
 import { Category } from '@/type'
+
 interface ICustomSelectInput {
   control: Control<any, any, any>
   categories: Category[]
 }
+
 const CustomSelectInput = ({ control, categories }: ICustomSelectInput) => {
   return (
     <FormField
@@ -23,8 +25,13 @@ const CustomSelectInput = ({ control, categories }: ICustomSelectInput) => {
           <FormControl>
             <select
               className='bg-white p-2 border border-black rounded-lg w-full text-black'
-              {...field}
+              value={field.value ?? ''}
+              onChange={e => {
+                const selected = e.target.value
+                field.onChange(selected ? Number(selected) : '')
+              }}
             >
+              <option value=''>Select a category</option>
               {categories.map(cat => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}

@@ -19,7 +19,7 @@ const ViewProduct = ({
       handleOpen={onOpenChange}
       title={`Edit product number #${product.id}`}
     >
-      <ProductForm product={product}/>
+      <ProductForm product={product} onOpenChange={onOpenChange}/>
     </CustomDialog>
   )
 }

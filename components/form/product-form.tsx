@@ -3,13 +3,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Form } from '@/components/ui/form'
 import { FormInput, SubmitButton, CustomSelectInput } from '@/components/common'
-import { LoginFormData, loginFormSchema } from '@/schema/login-schema'
 import { useLoadingAction, useLoginSubmit } from '@/hooks'
 import { ProductFormData, ProductSchema } from '@/schema/product-schema'
 import { useEffect, useState } from 'react'
 import { Category, Product } from '@/type'
+import useProductCreate from '@/hooks/use-product-create'
 
-const ProductForm = ({ product }: { product?: Product }) => {
+const ProductForm = ({
+  product,
+  onOpenChange
+}: {
+  product?: Product
+  onOpenChange: () => void
+}) => {
   const { isLoading, startLoading, stopLoading } = useLoadingAction()
   const form = useForm<ProductFormData>({
     resolver: zodResolver(ProductSchema),
@@ -18,12 +24,13 @@ const ProductForm = ({ product }: { product?: Product }) => {
       price: 0,
       categoryId: 0,
       description: '',
-      images: ['']
+      images: ''
     }
   })
-  // const categories = ['aaa', 'bbb', 'ccc']
-  // const onSubmit = useLoginSubmit(startLoading, stopLoading)
-  const onSubmit = () => console.log('first')
+  const onSubmit = product
+    ? () => {}
+    : useProductCreate(startLoading, stopLoading, onOpenChange)
+
   useEffect(() => {
     if (product) {
       form.reset({
@@ -31,7 +38,7 @@ const ProductForm = ({ product }: { product?: Product }) => {
         price: product.price,
         description: product.description,
         categoryId: product.category.id,
-        images: product.images
+        images: product.images as unknown as string
       })
     }
   }, [product, form.reset])

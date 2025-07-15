@@ -39,6 +39,13 @@ const FormInput = ({
                 'bg-white border-black text-black placeholder:text-gray-800 focus-within:bg-white focus:bg-white'
               }
               {...field}
+              onChange={e =>
+                type === 'number'
+                  ? field.onChange(
+                      e.target.value === '' ? '' : e.target.valueAsNumber
+                    )
+                  : field.onChange(e.target.value)
+              }
             />
           </FormControl>
           <FormMessage className='text-red-600' />

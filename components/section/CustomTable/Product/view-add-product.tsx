@@ -14,7 +14,7 @@ const ViewProduct = ({
       handleOpen={onOpenChange}
       title={`Create a new Product`}
     >
-      <ProductForm />
+      <ProductForm onOpenChange={onOpenChange}/>
     </CustomDialog>
   )
 }
