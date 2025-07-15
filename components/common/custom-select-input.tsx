@@ -25,7 +25,7 @@ const CustomSelectInput = ({ control, categories }: ICustomSelectInput) => {
           <FormControl>
             <select
               className='bg-white p-2 border border-black rounded-lg w-full text-black'
-              value={field.value ?? ''}
+              value={field.value?.toString() ?? ''}
               onChange={e => {
                 const selected = e.target.value
                 field.onChange(selected ? Number(selected) : '')

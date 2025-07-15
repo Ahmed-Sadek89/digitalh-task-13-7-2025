@@ -8,6 +8,7 @@ import { ProductFormData, ProductSchema } from '@/schema/product-schema'
 import { useEffect, useState } from 'react'
 import { Category, Product } from '@/type'
 import useProductCreate from '@/hooks/use-product-create'
+import useProductEdit from '@/hooks/use-product-edit'
 
 const ProductForm = ({
   product,
@@ -28,7 +29,7 @@ const ProductForm = ({
     }
   })
   const onSubmit = product
-    ? () => {}
+    ? useProductEdit(startLoading, stopLoading, onOpenChange, product.id)
     : useProductCreate(startLoading, stopLoading, onOpenChange)
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const ProductForm = ({
         price: product.price,
         description: product.description,
         categoryId: product.category.id,
-        images: product.images as unknown as string
+        images: product.images.join(',') as unknown as string
       })
     }
   }, [product, form.reset])

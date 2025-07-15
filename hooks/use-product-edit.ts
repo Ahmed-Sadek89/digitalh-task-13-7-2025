@@ -4,25 +4,31 @@ import { toast } from 'sonner'
 import { ProductFormData } from '@/schema/product-schema'
 import { useProductStore } from '@/store/product-store'
 
-const useProductCreate = (
+const useProductEdit = (
   startLoading: () => void,
   stopLoading: () => void,
-  onOpenChange: () => void
+  onOpenChange: () => void,
+  product_id: number
 ) => {
   const { productStore, setProductStore } = useProductStore()
   return async function onSubmit (values: ProductFormData) {
     startLoading()
     try {
-      const result = await fetch('/api/product', {
-        method: 'POST',
+      const result = await fetch(`/api/product/${product_id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...values, images: (values.images as string).split(',') })
+        body: JSON.stringify({
+          ...values,
+          images: (values.images as string)
+            .split(',')
+            .map(img => img.trim())
+            .filter(img => img !== '')
+        })
       })
 
       const data = await result.json()
-
       if (!result.ok || !data.id) {
         const messages = Array.isArray(data.message)
           ? data.message
@@ -34,8 +40,10 @@ const useProductCreate = (
             .join('\n')
         })
       } else {
-        toast.success('New product is added successfully!')
-        setProductStore([data, ...productStore])
+        toast.success(`Product number ${product_id} is updated successfully!`)
+        setProductStore(
+          productStore.map(index => (index.id === data.id ? data : index))
+        )
         onOpenChange()
       }
     } catch (error: any) {
@@ -48,4 +56,4 @@ const useProductCreate = (
   }
 }
 
-export default useProductCreate
+export default useProductEdit
